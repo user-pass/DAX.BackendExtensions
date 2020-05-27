@@ -52,19 +52,22 @@
         }
 
 
-        [HttpPost]
-        [CommerceAuthorization(CommerceRoles.Anonymous, CommerceRoles.Customer, CommerceRoles.Device, CommerceRoles.Employee)]
-        public PagedResult<Invitation> DeleteInvitation(Invitation deleteInvitationRecord)
-        {
-            var runtime = CommerceRuntimeManager.CreateRuntime(this.CommercePrincipal);
+        //[HttpPost]
+        //[CommerceAuthorization(CommerceRoles.Anonymous, CommerceRoles.Customer, CommerceRoles.Device, CommerceRoles.Employee)]
+        //public PagedResult<Invitation> DeleteInvitation(Invitation deleteInvitationRecord)
+        //{
+        //    var runtime = CommerceRuntimeManager.CreateRuntime(this.CommercePrincipal);
 
-            QueryResultSettings queryResultSettings = QueryResultSettings.AllRecords;
-            queryResultSettings.Paging = new PagingInfo(10);
+        //    QueryResultSettings queryResultSettings = QueryResultSettings.AllRecords;
+        //    queryResultSettings.Paging = new PagingInfo(10);
 
-            var request = new DeleteInvitationRequest(deleteInvitationRecord) { QueryResultSettings = queryResultSettings };
-            var invitationResp = runtime.Execute<EntityDataServiceResponse<Invitation>>(request, null).PagedEntityCollection;
-            return invitationResp;
-        }
+        //    var request = new DeleteInvitationRequest(deleteInvitationRecord) { QueryResultSettings = queryResultSettings };
+        //    var invitationResp = runtime.Execute<EntityDataServiceResponse<Invitation>>(request, null).PagedEntityCollection;
+        //    return invitationResp;
+        //}
+
+        
+
 
         [HttpPost]
         [CommerceAuthorization(CommerceRoles.Anonymous, CommerceRoles.Customer, CommerceRoles.Device, CommerceRoles.Employee)]
@@ -80,31 +83,61 @@
             return invitationResp;
         }
 
+        //[HttpPost]
+        //[CommerceAuthorization(CommerceRoles.Anonymous, CommerceRoles.Customer, CommerceRoles.Device, CommerceRoles.Employee)]
+        //public PagedResult<Invitation> InsertInvitation(Invitation insertInvitationRecord)
+        //{
+        //    var runtime = CommerceRuntimeManager.CreateRuntime(this.CommercePrincipal);
+
+        //    QueryResultSettings queryResultSettings = QueryResultSettings.AllRecords;
+        //    queryResultSettings.Paging = new PagingInfo(10);
+
+        //    var request = new InsertInvitationRequest(insertInvitationRecord) { QueryResultSettings = queryResultSettings };
+        //    var invitationResp = runtime.Execute<EntityDataServiceResponse<Invitation>>(request, null).PagedEntityCollection;
+        //    return invitationResp;
+        //}
+
+        //[HttpPost]
+        //[CommerceAuthorization(CommerceRoles.Anonymous, CommerceRoles.Customer, CommerceRoles.Device, CommerceRoles.Employee)]
+        //public PagedResult<Invitation> UpdateInvitation(Invitation updateInvitationRecord)
+        //{
+        //    var runtime = CommerceRuntimeManager.CreateRuntime(this.CommercePrincipal);
+
+        //    QueryResultSettings queryResultSettings = QueryResultSettings.AllRecords;
+        //    queryResultSettings.Paging = new PagingInfo(10);
+
+        //    var request = new UpdateInvitationRequest(updateInvitationRecord) { QueryResultSettings = queryResultSettings };
+        //    var invitationResp = runtime.Execute<EntityDataServiceResponse<Invitation>>(request, null).PagedEntityCollection;
+        //    return invitationResp;
+        //}
+
         [HttpPost]
         [CommerceAuthorization(CommerceRoles.Anonymous, CommerceRoles.Customer, CommerceRoles.Device, CommerceRoles.Employee)]
-        public PagedResult<Invitation> InsertInvitation(Invitation insertInvitationRecord)
+        public PagedResult<Invitation> UpdateInvitation(ODataActionParameters parameters)
         {
-            var runtime = CommerceRuntimeManager.CreateRuntime(this.CommercePrincipal);
-
-            QueryResultSettings queryResultSettings = QueryResultSettings.AllRecords;
-            queryResultSettings.Paging = new PagingInfo(10);
-
-            var request = new InsertInvitationRequest(insertInvitationRecord) { QueryResultSettings = queryResultSettings };
-            var invitationResp = runtime.Execute<EntityDataServiceResponse<Invitation>>(request, null).PagedEntityCollection;
+            var invitation = (Invitation)parameters["updateInvitationRecord"];
+            var request = new UpdateInvitationRequest(invitation);
+            var invitationResp = CommerceRuntime.Execute<EntityDataServiceResponse<Invitation>>(request, null).PagedEntityCollection;
             return invitationResp;
         }
 
         [HttpPost]
         [CommerceAuthorization(CommerceRoles.Anonymous, CommerceRoles.Customer, CommerceRoles.Device, CommerceRoles.Employee)]
-        public PagedResult<Invitation> UpdateInvitation(Invitation updateInvitationRecord)
+        public PagedResult<Invitation> DeleteInvitation(ODataActionParameters parameters)
         {
-            var runtime = CommerceRuntimeManager.CreateRuntime(this.CommercePrincipal);
+            var invitation = (Invitation)parameters["deleteInvitationRecord"];
+            var request = new DeleteInvitationRequest(invitation);
+            var invitationResp = CommerceRuntime.Execute<EntityDataServiceResponse<Invitation>>(request, null).PagedEntityCollection;
+            return invitationResp;
+        }
 
-            QueryResultSettings queryResultSettings = QueryResultSettings.AllRecords;
-            queryResultSettings.Paging = new PagingInfo(10);
-
-            var request = new UpdateInvitationRequest(updateInvitationRecord) { QueryResultSettings = queryResultSettings };
-            var invitationResp = runtime.Execute<EntityDataServiceResponse<Invitation>>(request, null).PagedEntityCollection;
+        [HttpPost]
+        [CommerceAuthorization(CommerceRoles.Anonymous, CommerceRoles.Customer, CommerceRoles.Device, CommerceRoles.Employee)]
+        public PagedResult<Invitation> InsertInvitation(ODataActionParameters parameters)
+        {
+            var invitation = (Invitation)parameters["insertInvitationRecord"];
+            var request = new InsertInvitationRequest(invitation);
+            var invitationResp = CommerceRuntime.Execute<EntityDataServiceResponse<Invitation>>(request, null).PagedEntityCollection;
             return invitationResp;
         }
     }

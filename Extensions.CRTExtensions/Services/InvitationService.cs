@@ -109,7 +109,7 @@
 
                 return new EntityDataServiceResponse<DataModel.Invitation>(result);
             }
-            
+
         }
 
         private EntityDataServiceResponse<DataModel.Invitation> DeleteAllInvitations(DeleteAllInvitationsRequest request)
@@ -122,18 +122,10 @@
                 {
                     QueryString = "TRUNCATE TABLE [AxDB].[ext].[INVITATIONTABLE]"
                 };
+
                 databaseContext.ExecuteNonQuery(truncateQuery);
 
-                var selectQuery = new SqlPagedQuery(request.QueryResultSettings)
-                {
-                    DatabaseSchema = "ext",
-                    Select = new ColumnSet("recId", "message", "language"),
-                    From = "INVITATIONTABLE"
-                };
-
-                var result = databaseContext.ReadEntity<DataModel.Invitation>(selectQuery);
-
-                return new EntityDataServiceResponse<DataModel.Invitation>(result);
+                return new EntityDataServiceResponse<DataModel.Invitation>();
             }
         }
 
@@ -144,22 +136,14 @@
             using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
             {
                 var deleteQuery = new SqlQuery()
-                {                   
+                {
                     QueryString = "DELETE FROM [AxDB].[ext].[INVITATIONTABLE] WHERE recId = @recId"
                 };
                 deleteQuery.Parameters["@recId"] = request.DeleteInvitationRecord.Id;
+
                 databaseContext.ExecuteNonQuery(deleteQuery);
 
-                var selectQuery = new SqlPagedQuery(request.QueryResultSettings)
-                {
-                    DatabaseSchema = "ext",
-                    Select = new ColumnSet("recId", "message", "language"),
-                    From = "INVITATIONTABLE"
-                };
-
-                var result = databaseContext.ReadEntity<DataModel.Invitation>(selectQuery);
-
-                return new EntityDataServiceResponse<DataModel.Invitation>(result);
+                return new EntityDataServiceResponse<DataModel.Invitation>();
             }
         }
 
@@ -188,9 +172,9 @@
             ThrowIf.Null(request, "request");
             using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
             {
-                var query = new SqlPagedQuery(request.QueryResultSettings)
+                var query = new SqlQuery()
                 {
-                    QueryString = "UPDATE ext.INVITATIONTABLE SET message = @message, language = @language WHERE recId = @recId"
+                    QueryString = "UPDATE [AxDB].[ext].[INVITATIONTABLE] SET message = @message, language = @language WHERE recId = @recId"
                 };
                 query.Parameters["@recId"] = request.UpdateInvitationRecord.Id;
                 query.Parameters["@message"] = request.UpdateInvitationRecord.Message;

@@ -40,10 +40,6 @@
             action.Parameter<Invitation>("updateInvitationRecord");
             action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
 
-            //ThrowIf.Null(builder, "builder");
-            //builder.BuildEntitySet<SampleDataModel.StoreDayHours>("StoreHours");        
-            //action = builder.BindEntityAction<SampleDataModel.StoreDayHours>("UpdateStoreDayHours");
-            //action.ReturnsFromEntitySet<SampleDataModel.StoreDayHours>("StoreHours");
 
         }
     }
