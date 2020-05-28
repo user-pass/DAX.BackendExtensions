@@ -25,21 +25,35 @@
             action = builder.BindEntitySetAction<Invitation>("GetInvitation");
             action.Returns<string>();
 
+            //action = builder.BindEntitySetAction<Invitation>("DeleteInvitation");
+            //action.Parameter<Invitation>("deleteInvitationRecord");
+            //action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
+
+            //action = builder.BindEntitySetAction<Invitation>("DeleteAllInvitations");
+            //action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
+
+            //action = builder.BindEntitySetAction<Invitation>("InsertInvitation");
+            //action.Parameter<Invitation>("insertInvitationRecord");
+            //action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
+
+            //action = builder.BindEntitySetAction<Invitation>("UpdateInvitation");
+            //action.Parameter<Invitation>("updateInvitationRecord");
+            //action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
+
             action = builder.BindEntitySetAction<Invitation>("DeleteInvitation");
             action.Parameter<Invitation>("deleteInvitationRecord");
-            action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
+            action.Returns<bool>();
 
             action = builder.BindEntitySetAction<Invitation>("DeleteAllInvitations");
-            action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
+            action.Returns<bool>();
 
             action = builder.BindEntitySetAction<Invitation>("InsertInvitation");
             action.Parameter<Invitation>("insertInvitationRecord");
-            action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
+            action.Returns<bool>();
 
             action = builder.BindEntitySetAction<Invitation>("UpdateInvitation");
             action.Parameter<Invitation>("updateInvitationRecord");
-            action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
-
+            action.Returns<bool>();
 
         }
     }

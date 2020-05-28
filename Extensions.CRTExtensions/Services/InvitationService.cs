@@ -112,77 +112,180 @@
 
         }
 
-        private EntityDataServiceResponse<DataModel.Invitation> DeleteAllInvitations(DeleteAllInvitationsRequest request)
+        //private EntityDataServiceResponse<DataModel.Invitation> DeleteAllInvitations(DeleteAllInvitationsRequest request)
+        //{
+
+        //    ThrowIf.Null(request, "request");
+        //    using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
+        //    {
+        //        var truncateQuery = new SqlQuery()
+        //        {
+        //            QueryString = "TRUNCATE TABLE [AxDB].[ext].[INVITATIONTABLE]"
+        //        };
+
+        //        databaseContext.ExecuteNonQuery(truncateQuery);
+
+        //        return new EntityDataServiceResponse<DataModel.Invitation>();
+        //    }
+        //}
+
+        //private EntityDataServiceResponse<DataModel.Invitation> DeleteInvitation(DeleteInvitationRequest request)
+        //{
+
+        //    ThrowIf.Null(request, "request");
+        //    using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
+        //    {
+        //        var deleteQuery = new SqlQuery()
+        //        {
+        //            QueryString = "DELETE FROM [AxDB].[ext].[INVITATIONTABLE] WHERE recId = @recId"
+        //        };
+        //        deleteQuery.Parameters["@recId"] = request.DeleteInvitationRecord.Id;
+
+        //        databaseContext.ExecuteNonQuery(deleteQuery);
+
+        //        return new EntityDataServiceResponse<DataModel.Invitation>();
+        //    }
+        //}
+
+        //private EntityDataServiceResponse<DataModel.Invitation> InsertInvitation(InsertInvitationRequest request)
+        //{
+
+        //    ThrowIf.Null(request, "request");
+        //    using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
+        //    {
+        //        var query = new SqlQuery()
+        //        {
+        //            QueryString = "INSERT INTO [AxDB].[ext].[INVITATIONTABLE] (message, language) VALUES (@message, @language)"
+        //        };
+        //        query.Parameters["@message"] = request.InsertInvitationRecord.Message;
+        //        query.Parameters["@language"] = request.InsertInvitationRecord.Language;
+
+        //        databaseContext.ExecuteNonQuery(query);
+
+        //        return new EntityDataServiceResponse<DataModel.Invitation>();
+        //    }
+        //}
+
+        //private EntityDataServiceResponse<DataModel.Invitation> UpdateInvitation(UpdateInvitationRequest request)
+        //{
+
+        //    ThrowIf.Null(request, "request");
+        //    using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
+        //    {
+        //        var query = new SqlQuery()
+        //        {
+        //            QueryString = "UPDATE [AxDB].[ext].[INVITATIONTABLE] SET message = @message, language = @language WHERE recId = @recId"
+        //        };
+        //        query.Parameters["@recId"] = request.UpdateInvitationRecord.Id;
+        //        query.Parameters["@message"] = request.UpdateInvitationRecord.Message;
+        //        query.Parameters["@language"] = request.UpdateInvitationRecord.Language;
+
+        //        databaseContext.ExecuteNonQuery(query);
+
+        //        return new EntityDataServiceResponse<DataModel.Invitation>();
+        //    }
+        //}
+
+        private SingleEntityDataServiceResponse<bool> DeleteAllInvitations(DeleteAllInvitationsRequest request)
         {
 
             ThrowIf.Null(request, "request");
             using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
             {
-                var truncateQuery = new SqlQuery()
+                try
                 {
-                    QueryString = "TRUNCATE TABLE [AxDB].[ext].[INVITATIONTABLE]"
-                };
+                    var query = new SqlQuery()
+                    {
+                        QueryString = "TRUNCATE TABLE [AxDB].[ext].[INVITATIONTABLE]"
+                    };
+                    databaseContext.ExecuteNonQuery(query);
 
-                databaseContext.ExecuteNonQuery(truncateQuery);
-
-                return new EntityDataServiceResponse<DataModel.Invitation>();
+                    return new SingleEntityDataServiceResponse<bool>(true);
+                }
+                catch (Exception)
+                {
+                    return new SingleEntityDataServiceResponse<bool>(false);
+                }
             }
         }
 
-        private EntityDataServiceResponse<DataModel.Invitation> DeleteInvitation(DeleteInvitationRequest request)
+        private SingleEntityDataServiceResponse<bool> DeleteInvitation(DeleteInvitationRequest request)
         {
 
             ThrowIf.Null(request, "request");
             using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
             {
-                var deleteQuery = new SqlQuery()
+                try
                 {
-                    QueryString = "DELETE FROM [AxDB].[ext].[INVITATIONTABLE] WHERE recId = @recId"
-                };
-                deleteQuery.Parameters["@recId"] = request.DeleteInvitationRecord.Id;
 
-                databaseContext.ExecuteNonQuery(deleteQuery);
+                    var query = new SqlQuery()
+                    {
+                        QueryString = "DELETE FROM [AxDB].[ext].[INVITATIONTABLE] WHERE recId = @recId"
+                    };
+                    query.Parameters["@recId"] = request.DeleteInvitationRecord.Id;
 
-                return new EntityDataServiceResponse<DataModel.Invitation>();
+                    databaseContext.ExecuteNonQuery(query);
+
+                    return new SingleEntityDataServiceResponse<bool>(true);
+                }
+                catch (Exception)
+                {
+                    return new SingleEntityDataServiceResponse<bool>(false);
+                }
             }
         }
 
-        private EntityDataServiceResponse<DataModel.Invitation> InsertInvitation(InsertInvitationRequest request)
+        private SingleEntityDataServiceResponse<bool> InsertInvitation(InsertInvitationRequest request)
         {
 
             ThrowIf.Null(request, "request");
             using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
             {
-                var query = new SqlQuery()
+                try
                 {
-                    QueryString = "INSERT INTO [AxDB].[ext].[INVITATIONTABLE] (message, language) VALUES (@message, @language)"
-                };
-                query.Parameters["@message"] = request.InsertInvitationRecord.Message;
-                query.Parameters["@language"] = request.InsertInvitationRecord.Language;
+                    var query = new SqlQuery()
+                    {
+                        QueryString = "INSERT INTO [AxDB].[ext].[INVITATIONTABLE] (message, language) VALUES (@message, @language)"
+                    };
+                    query.Parameters["@message"] = request.InsertInvitationRecord.Message;
+                    query.Parameters["@language"] = request.InsertInvitationRecord.Language;
 
-                databaseContext.ExecuteNonQuery(query);
+                    databaseContext.ExecuteNonQuery(query);
 
-                return new EntityDataServiceResponse<DataModel.Invitation>();
+                    return new SingleEntityDataServiceResponse<bool>(true);
+                }
+                catch (Exception)
+                {
+                    return new SingleEntityDataServiceResponse<bool>(false);
+                }
             }
         }
 
-        private EntityDataServiceResponse<DataModel.Invitation> UpdateInvitation(UpdateInvitationRequest request)
+        private SingleEntityDataServiceResponse<bool> UpdateInvitation(UpdateInvitationRequest request)
         {
 
             ThrowIf.Null(request, "request");
             using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
             {
-                var query = new SqlQuery()
+                try
                 {
-                    QueryString = "UPDATE [AxDB].[ext].[INVITATIONTABLE] SET message = @message, language = @language WHERE recId = @recId"
-                };
-                query.Parameters["@recId"] = request.UpdateInvitationRecord.Id;
-                query.Parameters["@message"] = request.UpdateInvitationRecord.Message;
-                query.Parameters["@language"] = request.UpdateInvitationRecord.Language;
+                    var query = new SqlQuery()
+                    {
+                        QueryString = "UPDATE [AxDB].[ext].[INVITATIONTABLE] SET message = @message, language = @language WHERE recId = @recId"
+                    };
+                    query.Parameters["@recId"] = request.UpdateInvitationRecord.Id;
+                    query.Parameters["@message"] = request.UpdateInvitationRecord.Message;
+                    query.Parameters["@language"] = request.UpdateInvitationRecord.Language;
 
-                databaseContext.ExecuteNonQuery(query);
+                    databaseContext.ExecuteNonQuery(query);
 
-                return new EntityDataServiceResponse<DataModel.Invitation>();
+                    return new SingleEntityDataServiceResponse<bool>(true);
+
+                }
+                catch (Exception)
+                {
+                    return new SingleEntityDataServiceResponse<bool>(false);
+                }
             }
         }
     }
