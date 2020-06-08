@@ -21,6 +21,7 @@
   <ItemGroup>
     <Compile Include="Invitation\EdmModelExtender.cs" />
     <Compile Include="Invitation\InvitationController.cs" />
+    <Compile Include="Invitation\LanguageController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

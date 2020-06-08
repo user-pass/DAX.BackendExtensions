@@ -25,21 +25,6 @@
             action = builder.BindEntitySetAction<Invitation>("GetInvitation");
             action.Returns<string>();
 
-            //action = builder.BindEntitySetAction<Invitation>("DeleteInvitation");
-            //action.Parameter<Invitation>("deleteInvitationRecord");
-            //action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
-
-            //action = builder.BindEntitySetAction<Invitation>("DeleteAllInvitations");
-            //action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
-
-            //action = builder.BindEntitySetAction<Invitation>("InsertInvitation");
-            //action.Parameter<Invitation>("insertInvitationRecord");
-            //action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
-
-            //action = builder.BindEntitySetAction<Invitation>("UpdateInvitation");
-            //action.Parameter<Invitation>("updateInvitationRecord");
-            //action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
-
             action = builder.BindEntitySetAction<Invitation>("DeleteInvitation");
             action.Parameter<Invitation>("deleteInvitationRecord");
             action.Returns<bool>();
@@ -55,6 +40,12 @@
             action.Parameter<Invitation>("updateInvitationRecord");
             action.Returns<bool>();
 
+            ////////////////////Language////////////////////////////////////
+
+            builder.BuildEntitySet<Language>("LanguageController");
+   
+            action = builder.BindEntitySetAction<Language>("GetAllLanguages");
+            action.ReturnsCollectionFromEntitySet<Language>("LanguageController");
         }
     }
 }

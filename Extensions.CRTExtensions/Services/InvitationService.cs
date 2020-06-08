@@ -25,7 +25,8 @@
                         typeof(DeleteInvitationRequest),
                         typeof(DeleteAllInvitationsRequest),
                         typeof(InsertInvitationRequest),
-                        typeof(UpdateInvitationRequest)
+                        typeof(UpdateInvitationRequest),
+                        typeof(GetAllLanguagesRequest)
                     };
             }
         }
@@ -64,6 +65,10 @@
             {
                 return this.InsertInvitation((InsertInvitationRequest)request);
             }
+            if (reqType == typeof(GetAllLanguagesRequest))
+            {
+                return this.GetAllLanguages((GetAllLanguagesRequest)request);
+            }
             else
             {
                 string message = string.Format(CultureInfo.InvariantCulture, "Request '{0}' is not supported.", reqType);
@@ -79,10 +84,10 @@
             {
                 var query = new SqlPagedQuery(request.QueryResultSettings)
                 {
-                    DatabaseSchema = "ext",
-                    Select = new ColumnSet("message"),
+                    DatabaseSchema = "dbo",
+                    Select = new ColumnSet("MESSAGETEXT"),
                     From = "INVITATIONTABLE",
-                    Where = "language = @language"
+                    Where = "LANGUAGEID = @language"
                 };
                 query.Parameters["@language"] = request.RequestContext.GetChannelConfiguration().CompanyLanguageId.ToString();
 
@@ -100,8 +105,8 @@
             {
                 var query = new SqlPagedQuery(request.QueryResultSettings)
                 {
-                    DatabaseSchema = "ext",
-                    Select = new ColumnSet("recId", "message", "language"),
+                    DatabaseSchema = "dbo",
+                    Select = new ColumnSet("RECID", "MESSAGETEXT", "LANGUAGEID"),
                     From = "INVITATIONTABLE"
                 };
 
@@ -111,80 +116,6 @@
             }
 
         }
-
-        //private EntityDataServiceResponse<DataModel.Invitation> DeleteAllInvitations(DeleteAllInvitationsRequest request)
-        //{
-
-        //    ThrowIf.Null(request, "request");
-        //    using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
-        //    {
-        //        var truncateQuery = new SqlQuery()
-        //        {
-        //            QueryString = "TRUNCATE TABLE [AxDB].[ext].[INVITATIONTABLE]"
-        //        };
-
-        //        databaseContext.ExecuteNonQuery(truncateQuery);
-
-        //        return new EntityDataServiceResponse<DataModel.Invitation>();
-        //    }
-        //}
-
-        //private EntityDataServiceResponse<DataModel.Invitation> DeleteInvitation(DeleteInvitationRequest request)
-        //{
-
-        //    ThrowIf.Null(request, "request");
-        //    using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
-        //    {
-        //        var deleteQuery = new SqlQuery()
-        //        {
-        //            QueryString = "DELETE FROM [AxDB].[ext].[INVITATIONTABLE] WHERE recId = @recId"
-        //        };
-        //        deleteQuery.Parameters["@recId"] = request.DeleteInvitationRecord.Id;
-
-        //        databaseContext.ExecuteNonQuery(deleteQuery);
-
-        //        return new EntityDataServiceResponse<DataModel.Invitation>();
-        //    }
-        //}
-
-        //private EntityDataServiceResponse<DataModel.Invitation> InsertInvitation(InsertInvitationRequest request)
-        //{
-
-        //    ThrowIf.Null(request, "request");
-        //    using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
-        //    {
-        //        var query = new SqlQuery()
-        //        {
-        //            QueryString = "INSERT INTO [AxDB].[ext].[INVITATIONTABLE] (message, language) VALUES (@message, @language)"
-        //        };
-        //        query.Parameters["@message"] = request.InsertInvitationRecord.Message;
-        //        query.Parameters["@language"] = request.InsertInvitationRecord.Language;
-
-        //        databaseContext.ExecuteNonQuery(query);
-
-        //        return new EntityDataServiceResponse<DataModel.Invitation>();
-        //    }
-        //}
-
-        //private EntityDataServiceResponse<DataModel.Invitation> UpdateInvitation(UpdateInvitationRequest request)
-        //{
-
-        //    ThrowIf.Null(request, "request");
-        //    using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
-        //    {
-        //        var query = new SqlQuery()
-        //        {
-        //            QueryString = "UPDATE [AxDB].[ext].[INVITATIONTABLE] SET message = @message, language = @language WHERE recId = @recId"
-        //        };
-        //        query.Parameters["@recId"] = request.UpdateInvitationRecord.Id;
-        //        query.Parameters["@message"] = request.UpdateInvitationRecord.Message;
-        //        query.Parameters["@language"] = request.UpdateInvitationRecord.Language;
-
-        //        databaseContext.ExecuteNonQuery(query);
-
-        //        return new EntityDataServiceResponse<DataModel.Invitation>();
-        //    }
-        //}
 
         private SingleEntityDataServiceResponse<bool> DeleteAllInvitations(DeleteAllInvitationsRequest request)
         {
@@ -196,7 +127,7 @@
                 {
                     var query = new SqlQuery()
                     {
-                        QueryString = "TRUNCATE TABLE [AxDB].[ext].[INVITATIONTABLE]"
+                        QueryString = "TRUNCATE TABLE [AxDB].[dbo].[INVITATIONTABLE]"
                     };
                     databaseContext.ExecuteNonQuery(query);
 
@@ -220,7 +151,7 @@
 
                     var query = new SqlQuery()
                     {
-                        QueryString = "DELETE FROM [AxDB].[ext].[INVITATIONTABLE] WHERE recId = @recId"
+                        QueryString = "DELETE FROM [AxDB].[dbo].[INVITATIONTABLE] WHERE RECID = @recId"
                     };
                     query.Parameters["@recId"] = request.DeleteInvitationRecord.Id;
 
@@ -245,7 +176,7 @@
                 {
                     var query = new SqlQuery()
                     {
-                        QueryString = "INSERT INTO [AxDB].[ext].[INVITATIONTABLE] (message, language) VALUES (@message, @language)"
+                        QueryString = "INSERT INTO [AxDB].[dbo].[INVITATIONTABLE] (MESSAGETEXT, LANGUAGEID) VALUES (@message, @language)"
                     };
                     query.Parameters["@message"] = request.InsertInvitationRecord.Message;
                     query.Parameters["@language"] = request.InsertInvitationRecord.Language;
@@ -271,7 +202,7 @@
                 {
                     var query = new SqlQuery()
                     {
-                        QueryString = "UPDATE [AxDB].[ext].[INVITATIONTABLE] SET message = @message, language = @language WHERE recId = @recId"
+                        QueryString = "UPDATE [AxDB].[dbo].[INVITATIONTABLE] SET MESSAGETEXT = @message, LANGUAGEID = @language WHERE RECID = @recId"
                     };
                     query.Parameters["@recId"] = request.UpdateInvitationRecord.Id;
                     query.Parameters["@message"] = request.UpdateInvitationRecord.Message;
@@ -287,6 +218,28 @@
                     return new SingleEntityDataServiceResponse<bool>(false);
                 }
             }
+        }
+
+        ///////////////////////////////Languages//////////////////////////////////////
+
+        private EntityDataServiceResponse<DataModel.Language> GetAllLanguages(GetAllLanguagesRequest request)
+        {
+
+            ThrowIf.Null(request, "request");
+            using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
+            {
+                var query = new SqlPagedQuery(request.QueryResultSettings)
+                {
+                    DatabaseSchema = "ax",
+                    Select = new ColumnSet("RECID", "LANGUAGEID"),
+                    From = "LANGUAGETABLE"
+                };
+
+                var result = databaseContext.ReadEntity<DataModel.Language>(query);
+
+                return new EntityDataServiceResponse<DataModel.Language>(result);
+            }
+
         }
     }
 }

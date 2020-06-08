@@ -6,9 +6,9 @@
 
     public class Invitation : CommerceEntity
     {
-        private const string recId = "recId";
-        private const string message = "message";
-        private const string language = "language";
+        private const string recId = "RECID";
+        private const string message = "MESSAGETEXT";
+        private const string language = "LANGUAGEID";
 
         public Invitation() : base("Invitation")
         {

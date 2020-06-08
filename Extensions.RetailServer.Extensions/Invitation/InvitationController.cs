@@ -51,50 +51,6 @@
             return invitationResp;
         }
 
-        //[HttpPost]
-        //[CommerceAuthorization(CommerceRoles.Anonymous, CommerceRoles.Customer, CommerceRoles.Device, CommerceRoles.Employee)]
-        //public PagedResult<Invitation> DeleteAllInvitations()
-        //{
-        //    var runtime = CommerceRuntimeManager.CreateRuntime(this.CommercePrincipal);
-
-        //    QueryResultSettings queryResultSettings = QueryResultSettings.AllRecords;
-        //    queryResultSettings.Paging = new PagingInfo(10);
-
-        //    var request = new DeleteAllInvitationsRequest() { QueryResultSettings = queryResultSettings };
-        //    var invitationResp = runtime.Execute<EntityDataServiceResponse<Invitation>>(request, null).PagedEntityCollection;
-        //    return invitationResp;
-        //}
-
-        //[HttpPost]
-        //[CommerceAuthorization(CommerceRoles.Anonymous, CommerceRoles.Customer, CommerceRoles.Device, CommerceRoles.Employee)]
-        //public PagedResult<Invitation> UpdateInvitation(ODataActionParameters parameters)
-        //{
-        //    var invitation = (Invitation)parameters["updateInvitationRecord"];
-        //    var request = new UpdateInvitationRequest(invitation);
-        //    var invitationResp = CommerceRuntime.Execute<EntityDataServiceResponse<Invitation>>(request, null).PagedEntityCollection;
-        //    return invitationResp;
-        //}
-
-        //[HttpPost]
-        //[CommerceAuthorization(CommerceRoles.Anonymous, CommerceRoles.Customer, CommerceRoles.Device, CommerceRoles.Employee)]
-        //public PagedResult<Invitation> DeleteInvitation(ODataActionParameters parameters)
-        //{
-        //    var invitation = (Invitation)parameters["deleteInvitationRecord"];
-        //    var request = new DeleteInvitationRequest(invitation);
-        //    var invitationResp = CommerceRuntime.Execute<EntityDataServiceResponse<Invitation>>(request, null).PagedEntityCollection;
-        //    return invitationResp;
-        //}
-
-        //[HttpPost]
-        //[CommerceAuthorization(CommerceRoles.Anonymous, CommerceRoles.Customer, CommerceRoles.Device, CommerceRoles.Employee)]
-        //public PagedResult<Invitation> InsertInvitation(ODataActionParameters parameters)
-        //{
-        //    var invitation = (Invitation)parameters["insertInvitationRecord"];
-        //    var request = new InsertInvitationRequest(invitation);
-        //    var invitationResp = CommerceRuntime.Execute<EntityDataServiceResponse<Invitation>>(request, null).PagedEntityCollection;
-        //    return invitationResp;
-        //}
-
         [HttpPost]
         [CommerceAuthorization(CommerceRoles.Anonymous, CommerceRoles.Customer, CommerceRoles.Device, CommerceRoles.Employee)]
         public bool DeleteAllInvitations()
