@@ -25,20 +25,6 @@
 
         [HttpPost]
         [CommerceAuthorization(CommerceRoles.Anonymous, CommerceRoles.Customer, CommerceRoles.Device, CommerceRoles.Employee)]
-        public string GetInvitation()
-        {
-            var runtime = CommerceRuntimeManager.CreateRuntime(this.CommercePrincipal);
-
-            QueryResultSettings queryResultSettings = QueryResultSettings.SingleRecord;
-            queryResultSettings.Paging = new PagingInfo(10);
-
-            var request = new GetInvitationRequest() { QueryResultSettings = queryResultSettings };
-            var invitationResp = runtime.Execute<SingleEntityDataServiceResponse<string>>(request, null)?.Entity;
-            return invitationResp;
-        }
-
-        [HttpPost]
-        [CommerceAuthorization(CommerceRoles.Anonymous, CommerceRoles.Customer, CommerceRoles.Device, CommerceRoles.Employee)]
         public PagedResult<Invitation> GetAllInvitations()
         {
             var runtime = CommerceRuntimeManager.CreateRuntime(this.CommercePrincipal);
@@ -93,6 +79,17 @@
             var request = new InsertInvitationRequest(invitation);
             var result = CommerceRuntime.Execute<SingleEntityDataServiceResponse<bool>>(request, null).Entity;
             return result;
+        }
+
+        [HttpPost]
+        [CommerceAuthorization(CommerceRoles.Anonymous, CommerceRoles.Customer, CommerceRoles.Device, CommerceRoles.Employee)]
+        public PagedResult<Invitation> GetInvitation(ODataActionParameters parameters)
+        {
+            var runtime = CommerceRuntimeManager.CreateRuntime(this.CommercePrincipal);
+            var invitation = (Invitation)parameters["getInvitationRecord"];
+            var request = new GetInvitationRequest(invitation);
+            var invitationResp = runtime.Execute<EntityDataServiceResponse<Invitation>>(request, null).PagedEntityCollection;
+            return invitationResp;
         }
     }
 }

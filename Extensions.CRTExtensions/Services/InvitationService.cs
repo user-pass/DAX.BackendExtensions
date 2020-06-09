@@ -77,25 +77,7 @@
             }
         }
 
-        private SingleEntityDataServiceResponse<string> GetInvitation(GetInvitationRequest request)
-        {
-            ThrowIf.Null(request, "request");
-            using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
-            {
-                var query = new SqlPagedQuery(request.QueryResultSettings)
-                {
-                    DatabaseSchema = "dbo",
-                    Select = new ColumnSet("MESSAGETEXT"),
-                    From = "INVITATIONTABLE",
-                    Where = "LANGUAGEID = @language"
-                };
-                query.Parameters["@language"] = request.RequestContext.GetChannelConfiguration().CompanyLanguageId.ToString();
 
-                var result = databaseContext.ReadEntity<DataModel.Invitation>(query);
-
-                return new SingleEntityDataServiceResponse<string>(result?.Results?.FirstOrDefault()?.Message);
-            }
-        }
 
         private EntityDataServiceResponse<DataModel.Invitation> GetAllInvitations(GetAllInvitationsRequest request)
         {
@@ -217,6 +199,26 @@
                 {
                     return new SingleEntityDataServiceResponse<bool>(false);
                 }
+            }
+        }
+
+        private EntityDataServiceResponse<DataModel.Invitation> GetInvitation(GetInvitationRequest request)
+        {
+            ThrowIf.Null(request, "request");
+            using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
+            {
+                var query = new SqlPagedQuery(request.QueryResultSettings)
+                {
+                    DatabaseSchema = "dbo",
+                    Select = new ColumnSet("RECID", "MESSAGETEXT", "LANGUAGEID"),
+                    From = "INVITATIONTABLE",
+                    Where = "LANGUAGEID = @languageId"
+                };
+                query.Parameters["@languageId"] = request.Invitation.Language;
+
+                var result = databaseContext.ReadEntity<DataModel.Invitation>(query);
+
+                return new EntityDataServiceResponse<DataModel.Invitation>(result);
             }
         }
 

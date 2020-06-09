@@ -1,14 +1,16 @@
 ﻿namespace DAX.Runtime.Extensions.CRTExtensions.Messages
 {
     using Microsoft.Dynamics.Commerce.Runtime.Messages;
+    using DAX.Runtime.Extensions.CRTExtensions.DataModel;
 
     public sealed class GetInvitationRequest : Request
     {
-        public GetInvitationRequest()
+        public GetInvitationRequest(Invitation invitation)
         {
+            this.Invitation = invitation;
         }
 
-        public string Invitation { get; private set; }
+        public Invitation Invitation { get; private set; }
 
     }
 }
