@@ -26,7 +26,8 @@
                         typeof(DeleteAllInvitationsRequest),
                         typeof(InsertInvitationRequest),
                         typeof(UpdateInvitationRequest),
-                        typeof(GetAllLanguagesRequest)
+                        typeof(GetAllLanguagesRequest),
+                        typeof(GetGratitudeRequest),
                     };
             }
         }
@@ -68,6 +69,10 @@
             if (reqType == typeof(GetAllLanguagesRequest))
             {
                 return this.GetAllLanguages((GetAllLanguagesRequest)request);
+            }
+            if (reqType == typeof(GetGratitudeRequest))
+            {
+                return this.GetGratitude((GetGratitudeRequest)request);
             }
             else
             {
@@ -242,6 +247,26 @@
                 return new EntityDataServiceResponse<DataModel.Language>(result);
             }
 
+        }
+
+        //////////////////////////////////GRATITUDE///////////////////////////////////////////////////
+        private EntityDataServiceResponse<DataModel.Gratitude> GetGratitude(GetGratitudeRequest request)
+        {
+            ThrowIf.Null(request, "request");
+            using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
+            {
+                var query = new SqlPagedQuery(request.QueryResultSettings)
+                {
+                    DatabaseSchema = "ext",
+                    Select = new ColumnSet("STORENUMBER", "RECEIPTMESSAGE", "RECID"),
+                    From = "GRATITUDE",
+                    Where = "STORENUMBER = @storeNumber"
+                };
+                query.Parameters["@storeNumber"] = request.StoreNumber;
+                var result = databaseContext.ReadEntity<DataModel.Gratitude>(query);
+
+                return new EntityDataServiceResponse<DataModel.Gratitude>(result);
+            }
         }
     }
 }

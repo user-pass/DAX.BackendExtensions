@@ -250,10 +250,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CommerceRuntime\Extensions.StoreHoursSample\Runtime.Extensions.CRT.csproj">
-      <Project>{5653EC0A-4CE7-43CD-8B9C-D9351227C92F}</Project>
-      <Name>Runtime.Extensions.CRT</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Extensions.CRTExtensions\Runtime.Extensions.CRTExtensions.csproj">
       <Project>{8176f6b7-bd18-4ce7-83e6-8dde355e4ed1}</Project>
       <Name>Runtime.Extensions.CRTExtensions</Name>
