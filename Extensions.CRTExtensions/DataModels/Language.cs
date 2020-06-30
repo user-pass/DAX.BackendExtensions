@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Dynamics.Commerce.Runtime.ComponentModel.DataAnnotations;
-using Microsoft.Dynamics.Commerce.Runtime.DataModel;
-using System.Runtime.Serialization;
-
-namespace DAX.Runtime.Extensions.CRTExtensions.DataModel
+﻿namespace DAX.Runtime.Extensions.CRTExtensions.DataModels
 {
+    using Microsoft.Dynamics.Commerce.Runtime.ComponentModel.DataAnnotations;
+    using Microsoft.Dynamics.Commerce.Runtime.DataModel;
+    using System.Runtime.Serialization;
     public class Language: CommerceEntity
     {
         private const string recId = "RECID";

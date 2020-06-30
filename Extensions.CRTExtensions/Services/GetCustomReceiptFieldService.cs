@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAX.Runtime.Extensions.CRTExtensions.Handlers
+﻿namespace DAX.Runtime.Extensions.CRTExtensions.Services
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +7,7 @@ namespace DAX.Runtime.Extensions.CRTExtensions.Handlers
     using Microsoft.Dynamics.Commerce.Runtime.Messages;
     using Microsoft.Dynamics.Commerce.Runtime.Services.Messages;
     using Microsoft.Dynamics.Commerce.Runtime.Data;
-    using CRTExtensions.DataModel;
+    using CRTExtensions.DataModels;
     using Microsoft.Dynamics.Commerce.Runtime.DataModel;
     using Messages;
 
@@ -58,10 +52,8 @@ namespace DAX.Runtime.Extensions.CRTExtensions.Handlers
             {
                 case "GRATITUDE":
                     {
-                        returnValue = GetGratitude(request.RequestContext, storeNumber);
-                        
+                        returnValue = GetGratitude(request.RequestContext, storeNumber);                      
                     }
-
                     break;
             }
 

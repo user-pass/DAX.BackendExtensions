@@ -1,19 +1,15 @@
-﻿namespace DAX.RetailServer.Extensions.Invitation
+﻿namespace DAX.RetailServer.Extensions.Controllers
 {
     using System.Runtime.InteropServices;
     using System.Web.Http;
     using System.Web.OData;
     using DAX.Runtime.Extensions.CRTExtensions.Messages;
-    using DAX.Runtime.Extensions.CRTExtensions.DataModel;
-    using SampleDataModel = Microsoft.Dynamics.Commerce.Runtime.DataModel;
+    using DAX.Runtime.Extensions.CRTExtensions.DataModels;
     using Microsoft.Dynamics.Retail.RetailServerLibrary.ODataControllers;
     using Microsoft.Dynamics.Commerce.Runtime.DataModel;
     using Microsoft.Dynamics.Retail.RetailServerLibrary;
     using Microsoft.Dynamics.Commerce.Runtime;
     using Microsoft.Dynamics.Commerce.Runtime.DataServices.Messages;
-    using System.Linq;
-    using System.Collections.Generic;
-
 
     [ComVisible(false)]
     public class InvitationController : CommerceController<Invitation, long>

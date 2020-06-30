@@ -1,4 +1,4 @@
-﻿namespace DAX.RetailServer.Extensions.Invitation
+﻿namespace DAX.RetailServer.Extensions.Controllers
 {
     using System;
     using System.Composition;
@@ -6,7 +6,7 @@
     using Microsoft.Dynamics.Commerce.Runtime;
     using Microsoft.Dynamics.Commerce.Runtime.DataModel;
     using Microsoft.Dynamics.Retail.RetailServerLibrary;
-    using DAX.Runtime.Extensions.CRTExtensions.DataModel;
+    using DAX.Runtime.Extensions.CRTExtensions.DataModels;
     using System.Collections.Generic;
 
 

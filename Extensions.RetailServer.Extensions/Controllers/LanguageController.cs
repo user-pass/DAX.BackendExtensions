@@ -1,10 +1,10 @@
-﻿namespace DAX.RetailServer.Extensions.Invitation
+﻿namespace DAX.RetailServer.Extensions.Controllers
 {
     using System.Runtime.InteropServices;
     using System.Web.Http;
     using System.Web.OData;
     using DAX.Runtime.Extensions.CRTExtensions.Messages;
-    using DAX.Runtime.Extensions.CRTExtensions.DataModel;
+    using DAX.Runtime.Extensions.CRTExtensions.DataModels;
     using SampleDataModel = Microsoft.Dynamics.Commerce.Runtime.DataModel;
     using Microsoft.Dynamics.Retail.RetailServerLibrary.ODataControllers;
     using Microsoft.Dynamics.Commerce.Runtime.DataModel;

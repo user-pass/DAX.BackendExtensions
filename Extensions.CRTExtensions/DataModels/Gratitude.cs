@@ -1,4 +1,4 @@
-﻿namespace DAX.Runtime.Extensions.CRTExtensions.DataModel
+﻿namespace DAX.Runtime.Extensions.CRTExtensions.DataModels
 {
 
     using Microsoft.Dynamics.Commerce.Runtime.ComponentModel.DataAnnotations;

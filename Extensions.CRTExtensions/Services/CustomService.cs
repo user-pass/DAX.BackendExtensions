@@ -12,7 +12,7 @@
     using Microsoft.Dynamics.Commerce.Runtime.DataServices.Messages;
     using System.Linq;
 
-    public class InvitationService : IRequestHandler
+    public class CustomService : IRequestHandler
     {
         public IEnumerable<Type> SupportedRequestTypes
         {
@@ -84,7 +84,7 @@
 
 
 
-        private EntityDataServiceResponse<DataModel.Invitation> GetAllInvitations(GetAllInvitationsRequest request)
+        private EntityDataServiceResponse<DataModels.Invitation> GetAllInvitations(GetAllInvitationsRequest request)
         {
 
             ThrowIf.Null(request, "request");
@@ -97,9 +97,9 @@
                     From = "INVITATIONTABLE"
                 };
 
-                var result = databaseContext.ReadEntity<DataModel.Invitation>(query);
+                var result = databaseContext.ReadEntity<DataModels.Invitation>(query);
 
-                return new EntityDataServiceResponse<DataModel.Invitation>(result);
+                return new EntityDataServiceResponse<DataModels.Invitation>(result);
             }
 
         }
@@ -207,7 +207,7 @@
             }
         }
 
-        private EntityDataServiceResponse<DataModel.Invitation> GetInvitation(GetInvitationRequest request)
+        private EntityDataServiceResponse<DataModels.Invitation> GetInvitation(GetInvitationRequest request)
         {
             ThrowIf.Null(request, "request");
             using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
@@ -221,15 +221,15 @@
                 };
                 query.Parameters["@languageId"] = request.Invitation.Language;
 
-                var result = databaseContext.ReadEntity<DataModel.Invitation>(query);
+                var result = databaseContext.ReadEntity<DataModels.Invitation>(query);
 
-                return new EntityDataServiceResponse<DataModel.Invitation>(result);
+                return new EntityDataServiceResponse<DataModels.Invitation>(result);
             }
         }
 
-        ///////////////////////////////Languages//////////////////////////////////////
+        /////////////////////////////////////////LANGUAGE///////////////////////////////////////////////////
 
-        private EntityDataServiceResponse<DataModel.Language> GetAllLanguages(GetAllLanguagesRequest request)
+        private EntityDataServiceResponse<DataModels.Language> GetAllLanguages(GetAllLanguagesRequest request)
         {
 
             ThrowIf.Null(request, "request");
@@ -242,15 +242,15 @@
                     From = "LANGUAGETABLE"
                 };
 
-                var result = databaseContext.ReadEntity<DataModel.Language>(query);
+                var result = databaseContext.ReadEntity<DataModels.Language>(query);
 
-                return new EntityDataServiceResponse<DataModel.Language>(result);
+                return new EntityDataServiceResponse<DataModels.Language>(result);
             }
 
         }
 
-        //////////////////////////////////GRATITUDE///////////////////////////////////////////////////
-        private EntityDataServiceResponse<DataModel.Gratitude> GetGratitude(GetGratitudeRequest request)
+        /////////////////////////////////////////GRATITUDE///////////////////////////////////////////////////
+        private EntityDataServiceResponse<DataModels.Gratitude> GetGratitude(GetGratitudeRequest request)
         {
             ThrowIf.Null(request, "request");
             using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
@@ -263,9 +263,9 @@
                     Where = "STORENUMBER = @storeNumber"
                 };
                 query.Parameters["@storeNumber"] = request.StoreNumber;
-                var result = databaseContext.ReadEntity<DataModel.Gratitude>(query);
+                var result = databaseContext.ReadEntity<DataModels.Gratitude>(query);
 
-                return new EntityDataServiceResponse<DataModel.Gratitude>(result);
+                return new EntityDataServiceResponse<DataModels.Gratitude>(result);
             }
         }
     }
