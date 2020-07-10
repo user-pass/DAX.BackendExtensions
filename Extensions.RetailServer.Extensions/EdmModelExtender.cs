@@ -22,9 +22,9 @@
             var action = builder.BindEntitySetAction<Invitation>("GetAllInvitations");
             action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
 
-            action = builder.BindEntitySetAction<Invitation>("GetInvitation");
-            action.Parameter<Invitation>("getInvitationRecord");
-            action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
+            //action = builder.BindEntitySetAction<Invitation>("GetInvitation");
+            //action.Parameter<Invitation>("getInvitationRecord");
+            //action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
 
             action = builder.BindEntitySetAction<Invitation>("DeleteInvitation");
             action.Parameter<Invitation>("deleteInvitationRecord");

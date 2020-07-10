@@ -27,6 +27,7 @@
     <Compile Include="DataModels\Gratitude.cs" />
     <Compile Include="DataModels\Invitation.cs" />
     <Compile Include="DataModels\Language.cs" />
+    <Compile Include="Services\CustomClassHelper.cs" />
     <Compile Include="Services\GetCustomReceiptFieldService.cs" />
     <Compile Include="Messages\GetAllLanguagesRequest.cs" />
     <Compile Include="Messages\GetGratitudeRequest.cs" />
@@ -38,6 +39,8 @@
     <Compile Include="Messages\UpdateInvitationRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CustomService.cs" />
+    <Compile Include="Services\SaveCartHandler.cs" />
+    <Compile Include="Services\SaveCartTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="$(SdkReferencesPath)\netstandard.dll" />
