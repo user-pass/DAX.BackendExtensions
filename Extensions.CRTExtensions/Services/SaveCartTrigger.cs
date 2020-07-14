@@ -7,6 +7,7 @@
     using Microsoft.Dynamics.Commerce.Runtime.Workflow;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class SaveCartTrigger : IRequestTrigger
     {
@@ -39,17 +40,48 @@
 
         private SaveCartResponse GetCommentForCart(SaveCartRequest request)
         {
-            request.Cart.Comment = "test";
-            request.Cart.InvoiceComment = "test";
+            
+
+            if (request.Cart.CartLines.Count > 0)
+            {
+                int sum = 0;
+
+                foreach (var line in request.Cart.CartLines.ToList())
+                {
+                    
+                    sum += Convert.ToInt32(line.Price);
+
+                    CartLine cartLine = new CartLine();
+                    cartLine = line;
+                    cartLine.Comment = "discount";
+                    //DiscountLine discountLine = new DiscountLine();
+                    //discountLine.Percentage = 50;
+                    //cartLine.DiscountLines.Add(discountLine);
+                    request.Cart.CartLines.Remove(line);
+                    request.Cart.CartLines.Add(cartLine);
+                }
+
+                if (sum >= 50)
+                {
+                    request.Cart.TotalManualDiscountPercentage = 50;
+                }
+            } else
+            {
+                var emptyRequestHandler = new SaveCartRequestHandler();
+                var saveEmptyCartRequest = new SaveCartRequest(request.Cart);
+                return request.RequestContext.Runtime.Execute<SaveCartResponse>(saveEmptyCartRequest, saveEmptyCartRequest.RequestContext, emptyRequestHandler, skipRequestTriggers: true);
+            }
+
+            
 
             var requestHandler = new SaveCartRequestHandler();
             var saveCartRequest = new SaveCartRequest(request.Cart);
-            //return request.RequestContext.Runtime.Execute<SaveCartResponse>(request, request.RequestContext, requestHandler, skipRequestTriggers: true);
             return request.RequestContext.Runtime.Execute<SaveCartResponse>(saveCartRequest, saveCartRequest.RequestContext, requestHandler, skipRequestTriggers: true);
         }
 
         public void OnExecuted(Request request, Response response)
         {
+            
         }
     }
 }
