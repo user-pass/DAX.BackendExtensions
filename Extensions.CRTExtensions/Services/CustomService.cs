@@ -11,6 +11,7 @@
     using Microsoft.Dynamics.Commerce.Runtime.DataModel;
     using Microsoft.Dynamics.Commerce.Runtime.DataServices.Messages;
     using System.Linq;
+    using DataModels;
 
     public class CustomService : IRequestHandler
     {
@@ -28,6 +29,8 @@
                         typeof(UpdateInvitationRequest),
                         typeof(GetAllLanguagesRequest),
                         typeof(GetGratitudeRequest),
+                        typeof(GetCustomerByIdRequest),
+
                     };
             }
         }
@@ -73,6 +76,10 @@
             if (reqType == typeof(GetGratitudeRequest))
             {
                 return this.GetGratitude((GetGratitudeRequest)request);
+            }
+            if(reqType == typeof(GetCustomerByIdRequest))
+            {
+                return this.GetCustomerById((GetCustomerByIdRequest)request);
             }
             else
             {
@@ -266,6 +273,28 @@
                 var result = databaseContext.ReadEntity<DataModels.Gratitude>(query);
 
                 return new EntityDataServiceResponse<DataModels.Gratitude>(result);
+            }
+        }
+
+        ////////////////////////////////////////CUSTOMER_FILTER///////////////////////////////////////////////
+
+        private EntityDataServiceResponse<CustTable> GetCustomerById(GetCustomerByIdRequest request)
+        {
+            ThrowIf.Null(request, "request");
+            using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
+            {
+                var query = new SqlPagedQuery(request.QueryResultSettings)
+                {
+                    DatabaseSchema = "ax",
+                    Select = new ColumnSet("IDENTIFICATIONNUMBER", "RECID", "ACCOUNTNUM"),
+                    From = "CUSTTABLE",
+                    Where = "IDENTIFICATIONNUMBER = @idNumber"
+                };
+                query.Parameters["@idNumber"] = request.CustomerIdNumber;
+
+                var result = databaseContext.ReadEntity<CustTable>(query);
+
+                return new EntityDataServiceResponse<CustTable>(result);
             }
         }
     }

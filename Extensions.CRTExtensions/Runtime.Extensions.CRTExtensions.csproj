@@ -27,10 +27,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataModels\CustTable.cs" />
     <Compile Include="DataModels\Gratitude.cs" />
     <Compile Include="DataModels\Invitation.cs" />
     <Compile Include="DataModels\Language.cs" />
+    <Compile Include="Messages\GetCustomerByIdRequest.cs" />
     <Compile Include="Services\CustomClassHelper.cs" />
+    <Compile Include="Services\CustomerSearchByFieldsServiceRequestHandler.cs" />
     <Compile Include="Services\GetCustomReceiptFieldService.cs" />
     <Compile Include="Messages\GetAllLanguagesRequest.cs" />
     <Compile Include="Messages\GetGratitudeRequest.cs" />
@@ -42,8 +45,11 @@
     <Compile Include="Messages\UpdateInvitationRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CustomService.cs" />
+    <Compile Include="Services\GetCustomersByCustomerSearchResultsDataRequestHandler.cs" />
     <Compile Include="Services\SaveCartHandler.cs" />
     <Compile Include="Services\SaveCartTrigger.cs" />
+    <Compile Include="Services\SearchJournalTransactionsServiceRequestHandler.cs" />
+    <Compile Include="Services\SearchJournalTransactionsTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="$(SdkReferencesPath)\netstandard.dll" />
@@ -56,6 +62,9 @@
     <Reference Include="Microsoft.Dynamics.Commerce.Runtime.DataServices.Messages, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>$(PkgMicrosoft_Dynamics_Commerce_Runtime_DataServices_Messages)\lib\netstandard2.0\Microsoft.Dynamics.Commerce.Runtime.DataServices.Messages.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Dynamics.Commerce.Runtime.DataServices.SqlServer">
+      <HintPath>..\..\..\References\Microsoft.Dynamics.Commerce.Runtime.DataServices.SqlServer.9.10.19059.10\lib\net461\Microsoft.Dynamics.Commerce.Runtime.DataServices.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Dynamics.Commerce.Runtime.Entities, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>$(PkgMicrosoft_Dynamics_Commerce_Runtime_Entities)\lib\netstandard2.0\Microsoft.Dynamics.Commerce.Runtime.Entities.dll</HintPath>
     </Reference>
@@ -67,6 +76,9 @@
     </Reference>
     <Reference Include="Microsoft.Dynamics.Commerce.Runtime.RealtimeServices.Messages, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>$(PkgMicrosoft_Dynamics_Commerce_Runtime_RealtimeServices_Messages)\lib\netstandard2.0\Microsoft.Dynamics.Commerce.Runtime.RealtimeServices.Messages.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Dynamics.Commerce.Runtime.Services">
+      <HintPath>..\..\..\References\Microsoft.Dynamics.Commerce.Runtime.Services.9.10.19059.10\lib\netstandard2.0\Microsoft.Dynamics.Commerce.Runtime.Services.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Dynamics.Commerce.Runtime.Services.Messages, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>$(PkgMicrosoft_Dynamics_Commerce_Runtime_Services_Messages)\lib\netstandard2.0\Microsoft.Dynamics.Commerce.Runtime.Services.Messages.dll</HintPath>

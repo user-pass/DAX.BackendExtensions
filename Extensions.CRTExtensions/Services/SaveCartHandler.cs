@@ -4,6 +4,7 @@
     using Microsoft.Dynamics.Commerce.Runtime.DataModel;
     using Microsoft.Dynamics.Commerce.Runtime.Messages;
     using Microsoft.Dynamics.Commerce.Runtime.Workflow;
+    using System;
     using System.Linq;
 
     public sealed class SaveCartHandler : SingleRequestHandler<SaveCartRequest, SaveCartResponse>
@@ -14,17 +15,16 @@
 
             foreach (var line in request.Cart.CartLines.ToList())
             {
-                line.Comment = "test discount";
+                line.Comment = "discount 3";
+                line.DiscountLines.FirstOrDefault().Percentage = 50;
             }
 
             if (request.Cart.NetPrice >= 50.0M)
             {
+                //request.Cart.TotalManualDiscountPercentage = 10;
+                //request.Cart.DiscountAmount = request.Cart.NetPrice / 2;
+                //request.Cart.DiscountAmountWithoutTax = request.Cart.NetPrice / 2;
 
-                request.Cart.TotalManualDiscountPercentage = 10;
-
-                
-
-                //request.Cart.NetPrice = request.Cart.NetPrice - request.Cart.NetPrice / 10;
 
                 //foreach (var line in request.Cart.CartLines.ToList())
                 //{
@@ -41,7 +41,7 @@
 
 
             var requestHandler = new SaveCartRequestHandler();
-            return request.RequestContext.Runtime.Execute<SaveCartResponse>(request, request.RequestContext, requestHandler, skipRequestTriggers: true);
+            return request.RequestContext.Runtime.Execute<SaveCartResponse>(request, request.RequestContext, requestHandler, skipRequestTriggers: false);
         }
     }
 }
