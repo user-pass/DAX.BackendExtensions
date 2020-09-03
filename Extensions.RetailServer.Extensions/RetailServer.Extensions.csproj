@@ -19,6 +19,7 @@
     <ProjectGuid>{164758C6-7786-446F-8407-4A972D25D635}</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Controllers\TenderTypeController.cs" />
     <Compile Include="EdmModelExtender.cs" />
     <Compile Include="Controllers\InvitationController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />

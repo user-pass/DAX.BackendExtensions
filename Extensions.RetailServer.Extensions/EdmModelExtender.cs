@@ -18,7 +18,6 @@
         public void ExtendModel(CommerceModelBuilder builder)
         {
             builder.BuildEntitySet<Invitation>("InvitationController");
-
             var action = builder.BindEntitySetAction<Invitation>("GetAllInvitations");
             action.ReturnsCollectionFromEntitySet<Invitation>("InvitationController");
 
@@ -44,9 +43,15 @@
             ////////////////////Language////////////////////////////////////
 
             builder.BuildEntitySet<Language>("LanguageController");
-   
             action = builder.BindEntitySetAction<Language>("GetAllLanguages");
             action.ReturnsCollectionFromEntitySet<Language>("LanguageController");
+
+
+            ////////////////////General/////////////////////////////////////////
+
+            builder.BuildEntitySet<TenderTypeModel>("TenderTypeController");
+            action = builder.BindEntitySetAction<TenderTypeModel>("GetTenderTypes");
+            action.ReturnsCollectionFromEntitySet<TenderTypeModel>("TenderTypeController");
         }
     }
 }

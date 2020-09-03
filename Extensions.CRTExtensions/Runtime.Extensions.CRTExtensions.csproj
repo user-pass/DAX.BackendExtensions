@@ -31,7 +31,9 @@
     <Compile Include="DataModels\Gratitude.cs" />
     <Compile Include="DataModels\Invitation.cs" />
     <Compile Include="DataModels\Language.cs" />
+    <Compile Include="DataModels\TenderTypeModel.cs" />
     <Compile Include="Messages\GetCustomerByIdRequest.cs" />
+    <Compile Include="Messages\GetTenderTypesRequest.cs" />
     <Compile Include="Services\CustomClassHelper.cs" />
     <Compile Include="Services\CustomerSearchByFieldsServiceRequestHandler.cs" />
     <Compile Include="Services\GetCustomReceiptFieldService.cs" />

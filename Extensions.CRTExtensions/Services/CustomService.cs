@@ -30,7 +30,7 @@
                         typeof(GetAllLanguagesRequest),
                         typeof(GetGratitudeRequest),
                         typeof(GetCustomerByIdRequest),
-
+                        typeof(GetTenderTypesRequest),
                     };
             }
         }
@@ -80,6 +80,10 @@
             if(reqType == typeof(GetCustomerByIdRequest))
             {
                 return this.GetCustomerById((GetCustomerByIdRequest)request);
+            }
+            if(reqType == typeof(GetTenderTypesRequest))
+            {
+                return this.GetTenderTypes((GetTenderTypesRequest)request);
             }
             else
             {
@@ -296,6 +300,28 @@
 
                 return new EntityDataServiceResponse<CustTable>(result);
             }
+        }
+
+
+        //////////////////////////////////////////POS_REQUEST_HANDLER//////////////////////////////////////////
+
+        private EntityDataServiceResponse<TenderTypeModel> GetTenderTypes(GetTenderTypesRequest request)
+        {
+            ThrowIf.Null(request, "request");
+            using (DatabaseContext databaseContext = new DatabaseContext(request.RequestContext))
+            {
+                var query = new SqlPagedQuery(request.QueryResultSettings)
+                {
+                    DatabaseSchema = "ext",
+                    Select = new ColumnSet("NAME", "TENDERTYPEID", "DRAFTNEEDED"),
+                    From = "TENDERTYPETABLE",
+                };
+
+                var result = databaseContext.ReadEntity<TenderTypeModel>(query);
+
+                return new EntityDataServiceResponse<TenderTypeModel>(result);
+            }
+
         }
     }
 }
